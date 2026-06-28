@@ -9,28 +9,11 @@
 **Solution:**
 
 ```bash
-ssh bandit0@bandit.labs.overthewire.org -p 2220    # connect remotely to the machine
+ssh bandit0@bandit.labs.overthewire.org -p 2220    # SSH (Secure Shell), a way to remotely control another computer through the terminal, securely over the network.
 ```
 
 **Password:** bandit0
-
----
-
-**SSH — Secure Shell**
-
-A way to remotely control another computer through the terminal, securely over the network.
-
-**Syntax:**
-
-```bash
-ssh username@ipaddress -p portnumber
-```
-
-**Why SSH matters in cybersecurity?**
-- Pentesting and CTFs — connect to target machines using found credentials
-- Privilege escalation — SSH keys stored with wrong permissions are vulnerable
-- Brute forcing — attackers try common passwords against SSH
-- Tunneling — bypass firewalls by routing traffic through SSH
+<img width="618" height="540" alt="image" src="https://github.com/user-attachments/assets/560d691f-c0dc-42eb-8c4c-cc588b36652f" />
 
 ---
 
@@ -43,9 +26,9 @@ ssh username@ipaddress -p portnumber
 **Solution:**
 
 ```bash
-bandit0@bandit:~$ ls    # list the files inside
+bandit0@bandit:~$ ls    # List files and directories
 readme
-bandit0@bandit:~$ cat readme    # cat shows the content inside the file
+bandit0@bandit:~$ cat readme    # Cat prints the content of a file in terminal
 ```
 
 **Password:** 6y2kwnwK6grgvwvpLaa2T1cpFEK0hNR
@@ -53,6 +36,3 @@ bandit0@bandit:~$ cat readme    # cat shows the content inside the file
 <img width="692" height="172" alt="image" src="https://github.com/user-attachments/assets/fd665512-7f3e-4bfa-940c-22f4e118056f" />
 
 ---
-
-**ls , cd , cat , file , du , find**
-
