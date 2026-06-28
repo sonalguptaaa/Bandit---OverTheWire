@@ -13,7 +13,6 @@ ssh bandit0@bandit.labs.overthewire.org -p 2220    # SSH (Secure Shell), a way t
 ```
 
 **Password:** bandit0
-<img width="618" height="540" alt="image" src="https://github.com/user-attachments/assets/560d691f-c0dc-42eb-8c4c-cc588b36652f" />
 
 ---
 
@@ -32,7 +31,4 @@ bandit0@bandit:~$ cat readme    # Cat prints the content of a file in terminal
 ```
 
 **Password:** 6y2kwnwK6grgvwvpLaa2T1cpFEK0hNR
-
-<img width="692" height="172" alt="image" src="https://github.com/user-attachments/assets/fd665512-7f3e-4bfa-940c-22f4e118056f" />
-
 ---
