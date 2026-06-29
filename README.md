@@ -67,16 +67,16 @@ PK8fYLZg2hnHSz83plBL1iEPKdD3QToB
 
 ## Level 2 → Level 3 
 
-**Goal:** The password for the next level is stored in a file called --spaces in this filename-- located in the home directory
+**Goal:** The password for the next level is stored in a file called --spaces in this filename-- located in the home directory.
 
 **Commands used:** ls , cd , cat , file , du , find
 
 **Solution:**
 
 ```bash
-bandit1@bandit:~$ ls
+bandit2@bandit:~$ ls
 --spaces in this filename--
-bandit1@bandit:~$ cat -- "--spaces in this filename--"
+bandit2@bandit:~$ cat -- "--spaces in this filename--"
 7ZZ2LFrykP2zEyvBl4m3clcL7tGYJPME
 ```
 
@@ -87,5 +87,141 @@ Similarly with using backslashes (`\ `) only escapes spaces in a filename, but d
 To fix both problems together, spaces and leading dashes, we must use `--` before the filename. 
 
 So instead of `cat --spaces in this filename--` or `cat --spaces\ in\ this\ filename--`, we must wrap it in `cat -- "--spaces in this filename--"`
+
+---
+
+## Level 3 → Level 4 
+
+**Goal:** The password for the next level is stored in a hidden file in the inhere directory.
+
+**Commands used:** ls , cd , cat , file , du , find
+
+**Solution:**
+
+```bash
+bandit3@bandit:~$ ls -al
+total 24
+drwxr-xr-x   3 root root 4096 Jun 24 14:59 .
+drwxr-xr-x 150 root root 4096 Jun 24 15:02 ..
+-rw-r--r--   1 root root  220 Feb 13 12:16 .bash_logout
+-rw-r--r--   1 root root 3851 Jun 24 14:50 .bashrc
+-rw-r--r--   1 root root  807 Feb 13 12:16 .profile
+drwxr-xr-x   2 root root 4096 Jun 24 14:59 inhere
+bandit3@bandit:~$ cd inhere/
+bandit3@bandit:~/inhere$ ls -al
+total 12
+drwxr-xr-x 2 root    root    4096 Jun 24 14:59 .
+drwxr-xr-x 3 root    root    4096 Jun 24 14:59 ..
+-rw-r----- 1 bandit4 bandit3   33 Jun 24 14:59 ...Hiding-From-You
+bandit3@bandit:~/inhere$ cat ...Hiding-From-You
+xzTXq1rDJQVVAzdv5cHq1TQytTWufAMq
+```
+
+**Password for the next level:** xzTXq1rDJQVVAzdv5cHq1TQytTWufAMq
+
+Hidden files in Linux start with a `.` (dot) and are not visible with a regular `ls` command. You need `ls -la` or `ls -a` to reveal them. 
+
+In this level, the password was stored in a hidden file called `...Hiding-From-You` inside a directory called `inhere`. 
+
+Even multiple dots at the start still makes it a hidden file. 
+
+To find and read it, we navigate into the directory with `cd inhere` to reveal hidden files with `ls -la`, then read it with `cat ...Hiding-From-You`.
+
+---
+
+## Level 4 → Level 5 
+
+**Goal:** The password for the next level is stored in the only human-readable file in the inhere directory. Tip: if your terminal is messed up, try the “reset” command.
+
+**Commands used:** ls , cd , cat , file , du , find
+
+**Solution:**
+
+```bash
+bandit4@bandit:~$ ls -al
+total 24
+drwxr-xr-x   3 root root 4096 Jun 24 14:59 .
+drwxr-xr-x 150 root root 4096 Jun 24 15:02 ..
+-rw-r--r--   1 root root  220 Feb 13 12:16 .bash_logout
+-rw-r--r--   1 root root 3851 Jun 24 14:50 .bashrc
+-rw-r--r--   1 root root  807 Feb 13 12:16 .profile
+drwxr-xr-x   2 root root 4096 Jun 24 14:59 inhere
+bandit4@bandit:~$ cd inhere/
+bandit4@bandit:~/inhere$ file ./*
+./-file00: data
+./-file01: data
+./-file02: data
+./-file03: data
+./-file04: data
+./-file05: data
+./-file06: OpenPGP Public Key
+./-file07: ASCII text
+./-file08: data
+./-file09: Motorola S-Record; binary data in text format
+bandit4@bandit:~/inhere$ cat ./-file07
+6C7h9GD8M6ai5nr7wo1RonrzFjj9yIrG
+```
+
+**Password for the next level:** 6C7h9GD8M6ai5nr7wo1RonrzFjj9yIrG
+
+The `file` command reveals the true type of a file without opening it. 
+
+Running `file ./*` on all files showed most as `data`, meaning binary files containing machine-readable content that appears as garbage if opened. 
+
+Only `-file07` showed as `ASCII text`. ASCII (American Standard Code for Information Interchange) is a character encoding standard that represents human-readable text which are letters, numbers, and symbols we can read and understand. Binary/data files are meant for machines, not humans. 
+
+Since the goal was to find the human-readable file, ASCII text was the answer, hence `-file07` the only file worth reading with `cat`.
+
+---
+
+## Level 5 → Level 6   
+
+**Goal:** The password for the next level is stored in a file somewhere under the inhere directory and has all of the following properties:
+human-readable
+1033 bytes in size
+not executable
+
+**Commands used:** ls , cd , cat , file , du , find
+
+**Solution:**
+
+```bash
+bandit5@bandit:~$ ls -al
+total 24
+drwxr-xr-x   3 root root    4096 Jun 24 14:59 .
+drwxr-xr-x 150 root root    4096 Jun 24 15:02 ..
+-rw-r--r--   1 root root     220 Feb 13 12:16 .bash_logout
+-rw-r--r--   1 root root    3851 Jun 24 14:50 .bashrc
+-rw-r--r--   1 root root     807 Feb 13 12:16 .profile
+drwxr-x---  22 root bandit5 4096 Jun 24 14:59 inhere
+bandit5@bandit:~$ cd inhere/
+bandit5@bandit:~/inhere$ find . -type f -size 1033c ! -executable
+./maybehere07/.file2
+bandit5@bandit:~/inhere$ cat ./maybehere07/.file2
+pXa26xhMWaC2SvDotA4r9EgZkulOeSBW                        
+```
+**Password for the next level:** pXa26xhMWaC2SvDotA4r9EgZkulOeSBW
+
+The `find` command was used with multiple filters to narrow down the exact file.
+
+ `inhere/` searches inside this directory.
+ 
+ `-type f` is for only files, not directories (`-type d` for directories), so it does through all the files within. 
+
+ `-size 1033c` exactly looks for 1033 bytes in size (`c` stands for bytes in find).
+ 
+ `! -executable` bascially means NOT executable (the `!` means NOT).
+
+Instead of manually opening every file across multiple subdirectories, combining these three filters immediately pointed to the exact file. The file turned out to be `inhere/maybehere07/.file2`, a hidden file (starts with `.`) inside a subdirectory, which is why simple `ls` wouldn't have found it easily.
+
+Alternative using `-maxdepth`-
+
+```bash
+bandit5@bandit:~/inhere$ find . -maxdepth 2 -type f -size 1033c ! -executable
+```
+`-maxdepth 2` limits search to 2 levels deep -
+
+- Level 1 = inhere/ (current)
+- Level 2 = maybehere07/ (subdirectory)
 
 ---
