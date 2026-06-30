@@ -281,7 +281,7 @@ data.txt
 bandit7@bandit:~$ nano data.txt
 ^W
 Search: millionth
-millionth       VR1ljMayciFxbnUokuQmJFw6QC9VKtub   # The cursor blinks at "millionth"
+millionth       VR1ljMayciFxbnUokuQmJFw6QC9VKtub   # The cursor blinks at the first "millionth"
 ```
 Alternative method-
 
