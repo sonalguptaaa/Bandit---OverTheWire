@@ -263,4 +263,6 @@ So it ends up printing the entire content of the file just like the `cat` comman
 
 This is a clever trick to read a file using `grep`.
 
+When you run `find / ...`, it tries to search everywhere, including folders you don't have permission to access. This creates a lot of annoying "Permission denied" errors. Adding `2>/dev/null` at the end silences all those error messages so you only see the useful result.
+
 ---
