@@ -225,3 +225,37 @@ bandit5@bandit:~/inhere$ find . -maxdepth 2 -type f -size 1033c ! -executable
 - Level 2 = maybehere07/ (subdirectory)
 
 ---
+
+## Level 6 → Level 7    
+
+**Goal:** The password for the next level is stored somewhere on the server and has all of the following properties:
+
+owned by user bandit7
+owned by group bandit6
+33 bytes in size
+
+**Commands used:** ls , cd , cat , file , du , find , grep
+
+**Solution:**
+
+```bash
+bandit6@bandit:~$ find / -user bandit7 -group bandit6 -size 33c 2>/dev/null
+/var/lib/dpkg/info/bandit7.password
+bandit6@bandit:~$ grep "" /var/lib/dpkg/info/bandit7.password
+Bmnnvf82KzQlfxgAI2d1zYbr1u9pr3E3
+```
+
+**Password:** Bmnnvf82KzQlfxgAI2d1zYbr1u9pr3E3
+
+`grep` stands for Global Regular Expression Print. It is used to search for text inside files.
+
+`""` is an empty string (search pattern). This is what we are searching for. An empty string means "match everything". So grep will print every line of the file.
+
+`/var/lib/dpkg/info/bandit7.password` ist the file path, the exact location of the file we want to read.
+
+Normally grep is used to find specific words, like `grep "password" file.txt` but when you put nothing between the quotes (""), grep treats it as "match any line".
+So it ends up printing the entire content of the file just like the `cat` command.
+
+This is a clever trick to read a file using `grep`.
+
+---
